@@ -7,6 +7,7 @@ const responsesExpected = {
             status: "CANCELED",
             description: "Contrato cancelado por falta de pagamento.",
           },
+          actions: ["functCancelarContrato()"],
         },
         {
           payment: "se for assinatura, cancelar a assinatura",

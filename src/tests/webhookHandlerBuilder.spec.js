@@ -2,6 +2,8 @@ const WebhookHandlerBuilder = require("../useCases/WebhookHandlerBuilder.mjs");
 const contractUseCases = require("../useCases/contract");
 const paymentUseCases = require("../useCases/payment");
 
+const GENERIC_MESSAGE = { message: "Event has been received" };
+
 function makeSUT() {
   return new WebhookHandlerBuilder();
 }
@@ -23,62 +25,94 @@ describe("Webhook Build Handler", () => {
       },
     };
 
-    const handler = new WebhookHandlerBuilder()
-      .setContract(contract)
-      .setActions(actions);
+    const handler = new WebhookHandlerBuilder(contract, actions);
     const builder = handler.builder({ event: "PAYMENT_REFUNDED" });
 
     expect(handler).toBeDefined();
     expect(builder).toHaveProperty("status");
   });
 });
-
 describe("Testes of received Event SUBSCRIPTION_CREATED", () => {
-  it("Contract status is ACTIVE", () => expect(1).toBe(1));
-  it("Contract status is CANCELED", () => expect(1).toBe(1));
-  it("Contract status is PENDING", () => expect(1).toBe(1));
-  it("Contract status is REFUND", () => expect(1).toBe(1));
-  it("Contract status is TERMINATED", () => expect(1).toBe(1));
+  it("When ACTIVE: Should exec [nothing] and result contract[nothing]", () =>
+    expect(1).toBe(1));
+  it("When CANCELED: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When PENDING: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When REFUND: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When TERMINATED: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
 });
 describe("Testes of received Event SUBSCRIPTION_NOT_CREATED", () => {
-  it("Contract status is ACTIVE", () => expect(1).toBe(1));
-  it("Contract status is CANCELED", () => expect(1).toBe(1));
-  it("Contract status is PENDING", () => expect(1).toBe(1));
-  it("Contract status is REFUND", () => expect(1).toBe(1));
-  it("Contract status is TERMINATED", () => expect(1).toBe(1));
+  it("When ACTIVE: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When CANCELED: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When PENDING: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When REFUND: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When TERMINATED: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
 });
 describe("Testes of received Event PAYMENT_CREATED", () => {
-  it("Contract status is ACTIVE", () => expect(1).toBe(1));
-  it("Contract status is CANCELED", () => expect(1).toBe(1));
-  it("Contract status is PENDING", () => expect(1).toBe(1));
-  it("Contract status is REFUND", () => expect(1).toBe(1));
-  it("Contract status is TERMINATED", () => expect(1).toBe(1));
+  it("When ACTIVE: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When CANCELED: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When PENDING: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When REFUND: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When TERMINATED: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
 });
 describe("Testes of received Event PAYMENT_CONFIRMED", () => {
-  it("Contract status is ACTIVE", () => expect(1).toBe(1));
-  it("Contract status is CANCELED", () => expect(1).toBe(1));
-  it("Contract status is PENDING", () => expect(1).toBe(1));
-  it("Contract status is REFUND", () => expect(1).toBe(1));
-  it("Contract status is TERMINATED", () => expect(1).toBe(1));
+  it("When ACTIVE: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When CANCELED: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When PENDING: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When REFUND: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When TERMINATED: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
 });
 describe("Testes of received Event PAYMENT_CHARGEBACK_REQUESTED", () => {
-  it("Contract status is ACTIVE", () => expect(1).toBe(1));
-  it("Contract status is CANCELED", () => expect(1).toBe(1));
-  it("Contract status is PENDING", () => expect(1).toBe(1));
-  it("Contract status is REFUND", () => expect(1).toBe(1));
-  it("Contract status is TERMINATED", () => expect(1).toBe(1));
+  it("When ACTIVE: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When CANCELED: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When PENDING: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When REFUND: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When TERMINATED: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
 });
 describe("Testes of received Event PAYMENT_REFUNDED", () => {
-  it("Contract status is ACTIVE", () => expect(1).toBe(1));
-  it("Contract status is CANCELED", () => expect(1).toBe(1));
-  it("Contract status is PENDING", () => expect(1).toBe(1));
-  it("Contract status is REFUND", () => expect(1).toBe(1));
-  it("Contract status is TERMINATED", () => expect(1).toBe(1));
+  it("When ACTIVE: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When CANCELED: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When PENDING: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When REFUND: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When TERMINATED: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
 });
 describe("Testes of received Event PAYMENT_OVERDUE", () => {
-  it("Contract status is ACTIVE", () => expect(1).toBe(1));
-  it("Contract status is CANCELED", () => expect(1).toBe(1));
-  it("Contract status is PENDING", () => expect(1).toBe(1));
-  it("Contract status is REFUND", () => expect(1).toBe(1));
-  it("Contract status is TERMINATED", () => expect(1).toBe(1));
+  it("When ACTIVE: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When CANCELED: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When PENDING: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When REFUND: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
+  it("When TERMINATED: Should exec [actions] and result contract[]", () =>
+    expect(1).toBe(1));
 });

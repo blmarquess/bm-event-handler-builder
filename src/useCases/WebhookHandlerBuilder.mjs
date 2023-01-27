@@ -7,22 +7,18 @@ class WebhookHandlerBuilder {
     message: "Event has been received",
     event: this.#event,
   };
-  constructor() {}
+  constructor(contract, event, actions) {
+    this.#contract = contract;
+    this.#event = event;
+    this.#actions = actions;
+  }
 
   setContract(contract) {
     this.#contract = contract;
     return this;
   }
 
-  setActions(actions) {
-    this.#actions = actions;
-    return this;
-  }
-
-  setEvent(event) {
-    this.#event = event;
-    return this;
-  }
+  #makeBuilder() {}
 
   builder(paymentEvent) {
     this.#event = paymentEvent;
