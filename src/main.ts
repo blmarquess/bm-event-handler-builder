@@ -1,4 +1,4 @@
-const teste = {
+const teste: { [index: number]: string } = {
   0: "teste",
   1: "teste2",
   2: "teste3",
@@ -6,5 +6,5 @@ const teste = {
   4: "teste5",
 };
 
-console.log("length :", teste.length);
+console.log("length :", teste);
 // console.log("size :", teste.size());
