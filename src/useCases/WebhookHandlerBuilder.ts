@@ -1,22 +1,4 @@
-export interface IResult {
-  status: number
-  message: string
-  event: string
-}
-
-export interface iContract {
-  status: string
-  updateDescription: string
-}
-
-export interface IEvent {
-  event: string
-  eventDescription: string
-}
-
-export interface IActions {
-  [index: string]: Function
-}
+import { IResult } from '../@types'
 
 export class WebhookHandlerBuilder {
   private result: IResult

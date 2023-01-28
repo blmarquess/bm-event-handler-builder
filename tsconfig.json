@@ -9,8 +9,13 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "paths": {
+      "@/*": ["src/*"],
+      "@types/*": ["types/*"]
+    }
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "@types/**/*"],
   "exclude": ["node_modules", "**/*.test.ts"]
 }
