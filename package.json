@@ -32,11 +32,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/blmarquess/payment-webhook-handler.git"
+    "url": "git+https://github.com/blmarquess/payment-webhook-handler-builder.git"
   },
-  "homepage": "https://github.com/blmarquess/payment-webhook-handler#readme",
+  "homepage": "https://github.com/blmarquess/payment-webhook-handler-builder#readme",
   "bugs": {
-    "url": "https://github.com/blmarquess/payment-webhook-handler/issues"
+    "url": "https://github.com/blmarquess/payment-webhook-handler-builder/issues"
   },
   "devDependencies": {
     "@types/jest": "^29.4.0",
@@ -54,14 +54,6 @@
     "ts-jest": "^29.0.5",
     "ts-node": "latest",
     "typescript": "^4.9"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "dist"
-    ]
   },
   "files": [
     "dist/**/*"
