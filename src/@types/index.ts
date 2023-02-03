@@ -2,7 +2,7 @@ export interface IResult {
   message: string
 }
 
-export interface iContract {
+export interface IContract {
   status: string
   updateDescription: string
 }
@@ -26,11 +26,29 @@ export interface IActions {
 }
 
 export interface useCases {
-  getContractByReferenceId: (referenceId: string) => iContract
-  activeContract: (contract: iContract) => iContract
-  cancelContract: (contract: iContract) => iContract
-  refundPayment: (contract: iContract) => iContract
-  createInsurancePolicy: (contract: iContract) => iContract
-  cancelInsurancePolicy: (contract: iContract) => iContract
-  notifyPartner: (contract: iContract) => iContract
+  contractRepository: (referenceId: string) => IContract
+  activeContract: (contract: IContract) => IContract
+  cancelContract: (contract: IContract) => IContract
+  refundPayment: (contract: IContract) => IContract
+  createInsurancePolicy: (contract: IContract) => IContract
+  cancelInsurancePolicy: (contract: IContract) => IContract
+}
+
+export type IResponse = {
+  ok: IResult
+  notFound: IResult
+}
+
+export interface IDictRoles {
+  [index: string]: {
+    [index: string]: string[]
+  }
+}
+
+export interface IUseCases {
+  [index: string]: Function
+}
+
+export interface IContractRepository {
+  getContractByReferenceId: (referenceId: string) => Promise<IContract>
 }
