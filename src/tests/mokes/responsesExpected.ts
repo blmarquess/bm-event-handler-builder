@@ -1,4 +1,4 @@
-const responsesExpected = {
+export const responsesExpected = {
   PAYMENT_OVERDUE: {
     active: {
       actions: [
@@ -62,5 +62,3 @@ const responsesExpected = {
     _terminated: ['actions']
   }
 }
-
-module.exports = responsesExpected

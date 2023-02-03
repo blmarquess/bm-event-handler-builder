@@ -2,11 +2,12 @@
   "name": "bm-wh-gimymo-event-handler",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/main.js",
   "types": "dist/index.d.ts",
   "author": "Bruno Marques",
   "keywords": [
     "gimymo",
+    "hestia",
     "event",
     "handler",
     "bm",

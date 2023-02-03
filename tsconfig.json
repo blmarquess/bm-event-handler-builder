@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2016",
     "module": "commonjs",
     "outDir": "./dist",
     "strict": true,
@@ -11,11 +11,11 @@
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
+    "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
       "@types/*": ["types/*"]
     }
   },
-  "include": ["src/**/*", "@types/**/*"],
-  "exclude": ["node_modules", "**/*.test.ts"]
+  "include": ["src/**/*", "@types/**/*"]
 }
