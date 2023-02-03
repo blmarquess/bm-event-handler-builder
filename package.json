@@ -3,7 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/main.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/main.d.ts",
+  "typesVersions": {
+    "*": {
+      "dist/*": [
+        "dist/*"
+      ]
+    }
+  },
   "author": "Bruno Marques",
   "keywords": [
     "gimymo",
@@ -17,9 +24,19 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "tsc --description",
+    "clean": "rimraf lib",
+    "build": "npm run clean && tsc -p tsconfig.build.json",
     "dev": "tsn --respawn --transpileOnly --ignore-watch node_modules src/main.ts",
+    "prepublish": "npm run test && npm run build",
     "test": "jest --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blmarquess/payment-webhook-handler.git"
+  },
+  "homepage": "https://github.com/blmarquess/payment-webhook-handler#readme",
+  "bugs": {
+    "url": "https://github.com/blmarquess/payment-webhook-handler/issues"
   },
   "devDependencies": {
     "@types/jest": "^29.4.0",
@@ -36,6 +53,17 @@
     "prettier": "^2.8.3",
     "ts-jest": "^29.0.5",
     "ts-node": "latest",
-    "typescript": "*"
-  }
+    "typescript": "^4.9"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "dist"
+    ]
+  },
+  "files": [
+    "dist/**/*"
+  ]
 }
