@@ -1,4 +1,4 @@
-export default function cancelPayment() {
+export default function cancelPayment () {
   console.log('Canceling payment...')
   return {
     status: 'CANCELED',

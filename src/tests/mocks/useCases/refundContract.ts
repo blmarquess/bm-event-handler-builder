@@ -1,8 +1,7 @@
-export default function refundPayment() {
+export default function refundContract () {
   return {
     status: 'REFUND',
     updateDescription: 'Contract has been refound',
-    payment: 'REFUND',
     deleted: true
   }
 }

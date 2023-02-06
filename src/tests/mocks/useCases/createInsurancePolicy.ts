@@ -1,4 +1,4 @@
-export default function createInsurancePolicy() {
+export default function createInsurancePolicy () {
   return {
     status: 'ACTIVE',
     updateDescription: 'Contract has been active'
