@@ -62,3 +62,8 @@ export const responsesExpected = {
     _terminated: ['actions']
   }
 }
+
+export const responseMessages = {
+  ok: { message: 'Event has ben success processed!' },
+  notFound: { message: 'Event not found!' }
+}
