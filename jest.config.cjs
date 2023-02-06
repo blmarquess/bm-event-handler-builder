@@ -5,14 +5,16 @@ module.exports = {
   clearMocks: true,
   collectCoverage: true,
   coverageDirectory: 'coverage',
+  coverageReporters: ['json-summary', 'clover', 'json', 'lcov', ['text', { skipFull: true }]],
   coveragePathIgnorePatterns: ['/node_modules/'],
   coverageProvider: 'v8',
-  moduleFileExtensions: ['js', 'mjs', 'cjs', 'jsx', 'ts', 'tsx', 'json', 'node'],
+  verbose: true,
+  moduleFileExtensions: ['js', 'mjs', 'ts'],
   testMatch: [
     '**/__tests__/**/*.[jt]s?(x)',
     '**/__tests__/**/*.mjs?(x)',
     '**/?(*.)+(spec|test).[tj]s?(x)',
     '**/?(*.)+(spec|test).m[j]s?(x)'
   ],
-  testPathIgnorePatterns: ['/node_modules/']
+  testPathIgnorePatterns: ['/node_modules/', '/dist', '/src/tests/mocks']
 }

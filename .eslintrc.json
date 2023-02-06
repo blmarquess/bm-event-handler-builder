@@ -3,16 +3,19 @@
     "es2021": true,
     "node": true
   },
-  "extends": "standard-with-typescript",
-  "excludedFiles": "**/*.spec.ts",
+  "extends": ["standard-with-typescript", "prettier"],
+  "ignorePatterns": ["**/*.spec.ts", "**/*.spec.js", "**/*.test.ts", "**/tests/*", "**/*.d.ts"],
   "overrides": [],
   "parserOptions": {
+    "project": "./tsconfig.json",
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
   "rules": {
     "quotes": ["error", "single"],
     "indent": ["error", 2],
-    "space-before-function-paren": "off"
+    "space-before-function-paren": "off",
+    "@typescript-eslint/await-thenable": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off"
   }
 }
