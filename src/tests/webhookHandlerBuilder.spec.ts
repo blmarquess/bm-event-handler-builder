@@ -51,8 +51,20 @@ describe('Testes of repository', () => {
     await builder.handler(Events.SUBSCRIPTION_NOT_CREATED)
     expect(cancelSpy).toHaveBeenCalled()
   })
-  it('When received event and has rule and no useCase defined should return error message', () => expect(1).toBe(1))
-  it('When PENDING: Should exec [actions] and result contract[]', () => expect(1).toBe(1))
+  it('Should possibly add new useCase after adding in constructor', async () => {
+    const useCaseSpy = jest.spyOn(UseCases, 'createInsurancePolicy')
+    const builder = new WebhookHandlerBuilder({}, repository.setPending())
+      .addUseCase('createInsurancePolicy', UseCases.createInsurancePolicy)
+      .addActionRole('PAYMENT_CONFIRMED', 'PENDING', ['createInsurancePolicy'])
+    await builder.handler(Events.PAYMENT_CONFIRMED)
+    expect(builder).toBeDefined()
+    expect(useCaseSpy).toHaveBeenCalled()
+  })
+  it('Should possibly add new repository after new instance class', () => {
+    const builder = new WebhookHandlerBuilder()
+    builder.setRepository(repository.setActive())
+    expect(builder).toBeDefined()
+  })
 })
 
 describe('Testes of received Event SUBSCRIPTION_NOT_CREATED', () => {
