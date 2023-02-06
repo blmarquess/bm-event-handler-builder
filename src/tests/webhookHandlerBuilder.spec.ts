@@ -1,6 +1,6 @@
-import UseCases from '../useCases'
+import UseCases from './mocks/useCases'
 import { WebhookHandlerBuilder } from '../main'
-import { Events, Repository } from '../tests/mokes'
+import { Events, Repository } from './mocks'
 
 describe('Webhook Build Handler', () => {
   it('should return true, sample of health system test', () => {
