@@ -1,5 +1,5 @@
 {
-  "name": "bm-wh-gimymo-event-handler",
+  "name": "@bm/event-handler-builder",
   "version": "1.0.0",
   "description": "",
   "main": "dist/main.js",
@@ -27,8 +27,10 @@
     "clean": "rimraf lib",
     "build": "npm run clean && tsc -p tsconfig.build.json",
     "dev": "tsn --respawn --transpileOnly --ignore-watch node_modules src/main.ts",
+    "lint": "eslint --ext .ts src/ --fix",
     "prepublish": "npm run test && npm run build",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "test:cov": "jest --verbose --coverage --coverageReporters='text-summary' > coverage.txt"
   },
   "repository": {
     "type": "git",
