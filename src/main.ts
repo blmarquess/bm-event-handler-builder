@@ -46,12 +46,6 @@ export class WebhookHandlerBuilder {
    * @throws Error('Use case not registered')
    **/
   private async execFlowActions(contract: Types.IContract, actionsArray: string[]): Promise<void> {
-    const useCasesRegistered = Object.keys(this.useCases)
-    const hasUseCaseNotRegistered = actionsArray.some((useCase) => !useCasesRegistered.includes(useCase))
-    if (hasUseCaseNotRegistered) {
-      throw new Error('Use case not registered')
-    }
-
     let contractInWork = contract
     for (const useCase of actionsArray) {
       contractInWork = await this.useCases[useCase](contractInWork)
