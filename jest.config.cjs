@@ -7,6 +7,7 @@ module.exports = {
   coverageDirectory: 'coverage',
   coverageReporters: ['json-summary', 'clover', 'json', 'lcov', ['text', { skipFull: true }]],
   coveragePathIgnorePatterns: ['/node_modules/'],
+  collectCoverageFrom: ['src/**/*.{js,ts}', '!src/**/*.d.ts', '!src/tests/**/*.{js,ts}', '!src/@types/**/*.{js,ts}'],
   coverageProvider: 'v8',
   verbose: true,
   moduleFileExtensions: ['js', 'mjs', 'ts'],
@@ -16,5 +17,5 @@ module.exports = {
     '**/?(*.)+(spec|test).[tj]s?(x)',
     '**/?(*.)+(spec|test).m[j]s?(x)'
   ],
-  testPathIgnorePatterns: ['/node_modules/', '/dist', '/src/tests/mocks']
+  testPathIgnorePatterns: ['/node_modules/', '/dist']
 }

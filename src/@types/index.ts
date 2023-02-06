@@ -21,33 +21,16 @@ export interface IEvent {
   }
 }
 
-export interface IActions {
-  [index: string]: Function
-}
+export type IUseCase = (contract: IContract) => Promise<IContract> | IContract
 
-export interface useCases {
-  contractRepository: (referenceId: string) => IContract
-  activeContract: (contract: IContract) => IContract
-  cancelContract: (contract: IContract) => IContract
-  refundPayment: (contract: IContract) => IContract
-  createInsurancePolicy: (contract: IContract) => IContract
-  cancelInsurancePolicy: (contract: IContract) => IContract
-}
+export type IUseCases = Record<string, IUseCase>
 
-export type IResponse = {
+export interface IResponse {
   ok: IResult
   notFound: IResult
 }
 
-export interface IDictRoles {
-  [index: string]: {
-    [index: string]: string[]
-  }
-}
-
-export interface IUseCases {
-  [index: string]: Function
-}
+export type IDictRoles = Record<string, Record<string, string[]>>
 
 export interface IContractRepository {
   getContractByReferenceId: (referenceId: string) => Promise<IContract>

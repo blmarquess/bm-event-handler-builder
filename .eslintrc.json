@@ -4,7 +4,7 @@
     "node": true
   },
   "extends": ["standard-with-typescript", "prettier"],
-  "ignorePatterns": ["**/*.spec.ts", "**/*.spec.js", "**/*.test.ts", "**/tests/*", "**/*.d.ts"],
+  "ignorePatterns": ["**/*.spec.ts", "**/*.spec.js", "**/*.test.ts", "src/tests", "**/*.d.ts"],
   "overrides": [],
   "parserOptions": {
     "project": "./tsconfig.json",
