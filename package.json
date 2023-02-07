@@ -29,7 +29,8 @@
     "dev": "tsn --respawn --transpileOnly --ignore-watch node_modules src/main.ts",
     "lint": "eslint --ext .ts src/ --fix",
     "prepublish": "npm run test && npm run build",
-    "test": "jest --watchAll",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
     "test:cov": "jest --verbose --coverage --coverageReporters='text-summary' > coverage.txt"
   },
   "repository": {
