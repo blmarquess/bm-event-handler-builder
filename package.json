@@ -24,7 +24,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf lib",
+    "clean": "rimraf dist",
     "build": "npm run clean && tsc -p tsconfig.build.json",
     "dev": "tsn --respawn --transpileOnly --ignore-watch node_modules src/main.ts",
     "lint": "eslint --ext .ts src/ --fix",
@@ -35,11 +35,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/blmarquess/payment-webhook-handler-builder.git"
+    "url": "git+https://github.com/blmarquess/bm-event-handler-builder.git"
   },
-  "homepage": "https://github.com/blmarquess/payment-webhook-handler-builder#readme",
+  "homepage": "https://github.com/blmarquess/bm-event-handler-builder#readme",
   "bugs": {
-    "url": "https://github.com/blmarquess/payment-webhook-handler-builder/issues"
+    "url": "https://github.com/blmarquess/bm-event-handler-builder/issues"
   },
   "devDependencies": {
     "@types/jest": "^29.4.0",
