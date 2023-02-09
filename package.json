@@ -1,5 +1,5 @@
 {
-  "name": "@bm/event-handler-builder",
+  "name": "bm-event-handler-builder",
   "version": "1.0.0",
   "description": "",
   "main": "dist/main.js",
