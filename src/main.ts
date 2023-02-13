@@ -45,10 +45,10 @@ export class WebhookHandlerBuilder {
    * @returns
    * @throws Error('Use case not registered')
    **/
-  private async execFlowActions(contract: Types.IContract, actionsArray: string[]): Promise<void> {
+  private async execFlowActions(contract: Types.IContract, actionsArray: string[], event: Types.IEvent): Promise<void> {
     let contractInWork = contract
     for (const useCase of actionsArray) {
-      contractInWork = await this.useCases[useCase](contractInWork)
+      contractInWork = await this.useCases[useCase](contractInWork, event)
     }
   }
 
@@ -69,7 +69,7 @@ export class WebhookHandlerBuilder {
     if (notActionsForThisStatus) {
       return this.response.notFound
     }
-    await this.execFlowActions(contract, this.dictRoles[event.event][contract.status])
+    await this.execFlowActions(contract, this.dictRoles[event.event][contract.status], event)
     return this.response.ok
   }
 

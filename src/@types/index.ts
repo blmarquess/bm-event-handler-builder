@@ -21,7 +21,7 @@ export interface IEvent {
   }
 }
 
-export type IUseCase = (contract: IContract) => Promise<IContract> | IContract
+export type IUseCase = (contract: IContract, event?: IEvent) => Promise<IContract> | IContract
 
 export type IUseCases = Record<string, IUseCase>
 
