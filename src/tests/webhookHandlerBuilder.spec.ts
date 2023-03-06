@@ -7,7 +7,7 @@ describe('Webhook Build Handler', () => {
     expect(1).toBe(1)
   })
   it('should possible create HandlerObject', () => {
-    const builder = new WebhookHandlerBuilder()
+    const builder = new WebhookHandlerBuilder({ productKey: 'test' })
     const handler = builder.handler(Events.PAYMENT_CREATED)
     expect(handler).toBeDefined()
   })
@@ -18,7 +18,7 @@ describe('Testes of repository', () => {
   const repository = new Repository()
   it('Should possible executing repository with method getContractByReferenceId', async () => {
     const spy = jest.spyOn(repository.setActive(), 'getContractByReferenceId')
-    const builder = new WebhookHandlerBuilder()
+    const builder = new WebhookHandlerBuilder({ productKey: 'test' })
       .addUseCase('activeContract', UseCases.activeContract)
       .setRepository(repository)
     await builder.handler(Events.PAYMENT_CONFIRMED)
@@ -28,7 +28,11 @@ describe('Testes of repository', () => {
     const activeContract = jest.spyOn(UseCases, 'activeContract')
     const createInsurancePolicy = jest.spyOn(UseCases, 'createInsurancePolicy')
 
-    const builder = new WebhookHandlerBuilder(UseCases, repository.setActive())
+    const builder = new WebhookHandlerBuilder({
+      productKey: 'test',
+      useCases: UseCases,
+      repository: repository.setActive()
+    })
     builder.addActionRole('PAYMENT_CONFIRMED', 'PENDING', ['activeContract', 'createInsurancePolicy'])
     await builder.handler(Events.PAYMENT_CONFIRMED)
 
@@ -39,7 +43,11 @@ describe('Testes of repository', () => {
     const activeContract = jest.spyOn(UseCases, 'activeContract')
     const createInsurancePolicy = jest.spyOn(UseCases, 'createInsurancePolicy')
 
-    const builder = new WebhookHandlerBuilder(UseCases, repository.setPending())
+    const builder = new WebhookHandlerBuilder({
+      productKey: 'test',
+      useCases: UseCases,
+      repository: repository.setPending()
+    })
     builder.addActionRole('PAYMENT_CONFIRMED', 'PENDING', ['activeContract', 'createInsurancePolicy'])
     await builder.handler(Events.PAYMENT_CONFIRMED)
 
@@ -53,7 +61,7 @@ describe('Testes of repository', () => {
   })
   it('Should possibly add new useCase after adding in constructor', async () => {
     const useCaseSpy = jest.spyOn(UseCases, 'createInsurancePolicy')
-    const builder = new WebhookHandlerBuilder({}, repository.setPending())
+    const builder = new WebhookHandlerBuilder({ productKey: 'test', repository: repository.setPending() })
       .addUseCase('createInsurancePolicy', UseCases.createInsurancePolicy)
       .addActionRole('PAYMENT_CONFIRMED', 'PENDING', ['createInsurancePolicy'])
     await builder.handler(Events.PAYMENT_CONFIRMED)
@@ -61,43 +69,47 @@ describe('Testes of repository', () => {
     expect(useCaseSpy).toHaveBeenCalled()
   })
   it('Should possibly add new repository after new instance class', () => {
-    const builder = new WebhookHandlerBuilder()
+    const builder = new WebhookHandlerBuilder({ productKey: 'test' })
     builder.setRepository(repository.setActive())
     expect(builder).toBeDefined()
   })
   it('Should possibly add new repository after adding in constructor', () => {
-    const builder = new WebhookHandlerBuilder({}, repository.setActive())
+    const builder = new WebhookHandlerBuilder({ productKey: 'test', repository: repository.setActive() })
     expect(builder).toBeDefined()
   })
   it('Should possibly add new useCase after new instance class', () => {
-    const builder = new WebhookHandlerBuilder()
+    const builder = new WebhookHandlerBuilder({ productKey: 'test' })
     builder.addUseCase('createInsurancePolicy', UseCases.createInsurancePolicy)
     expect(builder).toBeDefined()
   })
   it('Should possibly add new useCase after adding in constructor', () => {
-    const builder = new WebhookHandlerBuilder(UseCases)
+    const builder = new WebhookHandlerBuilder({ productKey: 'test', useCases: UseCases })
     expect(builder).toBeDefined()
   })
   it('Should possibly set use cases after new instance class', () => {
-    const builder = new WebhookHandlerBuilder()
+    const builder = new WebhookHandlerBuilder({ productKey: 'test' })
     builder.setUseCases(UseCases)
     expect(builder).toBeDefined()
   })
   it('Should possibly add new action role after new instance class', () => {
-    const builder = new WebhookHandlerBuilder()
+    const builder = new WebhookHandlerBuilder({ productKey: 'test' })
     builder.addActionRole('PAYMENT_CONFIRMED', 'PENDING', ['activeContract', 'createInsurancePolicy'])
     expect(builder).toBeDefined()
   })
   it('Should possibly add new action role after adding in constructor', () => {
-    const builder = new WebhookHandlerBuilder({}, repository.setPending(), {
-      PAYMENT_CONFIRMED: {
-        PENDING: ['activeContract', 'createInsurancePolicy']
+    const builder = new WebhookHandlerBuilder({
+      productKey: 'test',
+      repository: repository.setPending(),
+      dictRoles: {
+        PAYMENT_CONFIRMED: {
+          PENDING: ['activeContract', 'createInsurancePolicy']
+        }
       }
     })
     expect(builder).toBeDefined()
   })
   it('Should possibly set action roles after new instance class', () => {
-    const builder = new WebhookHandlerBuilder()
+    const builder = new WebhookHandlerBuilder({ productKey: 'test' })
     builder.setDictRoles({
       PAYMENT_CONFIRMED: {
         PENDING: ['activeContract', 'createInsurancePolicy']
@@ -106,9 +118,13 @@ describe('Testes of repository', () => {
     expect(builder).toBeDefined()
   })
   it('Should possibly add new action role after new instance class', () => {
-    const builder = new WebhookHandlerBuilder({}, repository, {
-      PAYMENT_CONFIRMED: {
-        PENDING: ['activeContract', 'createInsurancePolicy']
+    const builder = new WebhookHandlerBuilder({
+      productKey: 'test',
+      repository: repository,
+      dictRoles: {
+        PAYMENT_CONFIRMED: {
+          PENDING: ['activeContract', 'createInsurancePolicy']
+        }
       }
     })
     builder.addActionRole('PAYMENT_CONFIRMED', 'PENDING', ['activeContract', 'createInsurancePolicy'])
@@ -116,7 +132,7 @@ describe('Testes of repository', () => {
   })
   it('Should possibly set responses after adding in constructor', async () => {
     const testMessage = { message: 'Not found' }
-    const builder = new WebhookHandlerBuilder()
+    const builder = new WebhookHandlerBuilder({ productKey: 'test' })
     builder.setResponse({
       notFound: { message: 'Not found' },
       ok: { message: 'Ok' }
@@ -127,12 +143,12 @@ describe('Testes of repository', () => {
 
 describe('Testes of failure cases', () => {
   it('Should when received Event and has role and not has useCases corresponding response notFound message', async () => {
-    const builder = new WebhookHandlerBuilder()
+    const builder = new WebhookHandlerBuilder({ productKey: 'test' })
     builder.addActionRole('PAYMENT_CONFIRMED', 'PENDING', ['activeContract', 'createInsurancePolicy'])
     expect(await builder.handler(Events.PAYMENT_CONFIRMED)).toEqual(responseMessages.notFound)
   })
   it('Should when received Event and not has role want response notFound message', async () => {
-    const builder = new WebhookHandlerBuilder()
+    const builder = new WebhookHandlerBuilder({ productKey: 'test' })
     builder.addActionRole('PAYMENT_CONFIRMED', 'PENDING', ['activeContract', 'createInsurancePolicy'])
     expect(await builder.handler(Events.PAYMENT_CONFIRMED)).toEqual(responseMessages.notFound)
   })
