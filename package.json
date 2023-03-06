@@ -1,6 +1,6 @@
 {
   "name": "bm-ev-handler-builder",
-  "version": "1.0.32",
+  "version": "1.0.33",
   "description": "",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",

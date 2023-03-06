@@ -5,7 +5,10 @@ const responses: Types.IResponse = {
   notFound: { message: 'Event not found!' }
 }
 class DefaultRepository implements Types.IContractRepository {
-  async getContractByReferenceId(_id: string): Promise<{
+  async getContractByReferenceId(
+    _id: string,
+    _key: string
+  ): Promise<{
     status: string
     updateDescription: string
   }> {
@@ -25,19 +28,26 @@ class DefaultRepository implements Types.IContractRepository {
  * @returns  Object with result response of successfully 'ok': {message: 'Event has ben success processed!'} or  'notFound': {message: 'Event not found!'}}
  */
 export default class WebhookHandlerBuilder {
+  private readonly productKey: string
+  private useCases: Types.IUseCases = {}
+  private repository: Types.IContractRepository = new DefaultRepository()
+  private dictRoles: Types.IDictRoles = {}
+  private response = responses
   /**
    *
+   * @param productKey  Product key to identify the product
    * @param useCases  Object with all use cases functions {'useCaseName': useCaseFunction}
    * @param repository  Object with all repository implementes getContractByReferenceId {'getContractByReferenceId': (contractId: string) => Promise<Types.IContract>)}
    * @param dictRoles  Object with all roles {'EVENT_NAME': {'CONTRACT_STATUS': ['useCaseName', 'useCaseName']}}
    * @param response  Object with all responses {'ok': {message: 'Event has ben success processed!'}, 'notFound': {message: 'Event not found!'}}
    */
-  constructor(
-    private useCases: Types.IUseCases = {},
-    private repository: Types.IContractRepository = new DefaultRepository(),
-    private dictRoles: Types.IDictRoles = {},
-    private response = responses
-  ) {}
+  constructor({ productKey, useCases, repository, dictRoles, response }: Types.IConstructorParams) {
+    this.productKey = productKey
+    this.useCases = useCases ?? {}
+    this.repository = repository ?? new DefaultRepository()
+    this.dictRoles = dictRoles ?? {}
+    this.response = response ?? responses
+  }
 
   /**
    * @param contract  Contract object
@@ -60,7 +70,7 @@ export default class WebhookHandlerBuilder {
    * @throws Error('Contract not found')
    */
   async handler(event: Types.IEvent): Promise<Types.IResult> {
-    const contract = await this.repository.getContractByReferenceId(event.referenceId)
+    const contract = await this.repository.getContractByReferenceId(event.referenceId, this.productKey)
     const notMappedEvent = !this.dictRoles[event.event]
     if (notMappedEvent) {
       return this.response.notFound
