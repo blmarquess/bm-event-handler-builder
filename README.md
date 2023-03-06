@@ -17,6 +17,7 @@ create instance:
 ```TypeScript
 import  WebhookHandlerBuilder from 'bm-ev-handler-builder';
 
+const productKey = 'productKey'
 const useCases = { activeContract: (contract) => { ...contract, status: 'ACTIVE'}}
 const repository = { getContractByReferenceId: (id) => contract }
 const dictRoles - { 'PAYMENT_CONFIRMED': {
@@ -24,20 +25,19 @@ const dictRoles - { 'PAYMENT_CONFIRMED': {
   pending: ['cancelContract']
 }}
 
-
-const handlerBuilder = new WebhookHandlerBuilder(useCases, repository, dictRoles);
+const handlerBuilder = new WebhookHandlerBuilder({productKey, useCases, repository, dictRoles});
 
 export handlerBuilder.handler(EventReceived)
 ```
 
-Has possible to add use cases, repositories, and roles after instance from set:
+> The product key is required on the constructor. outers properties have possible to "add use cases, repositories, and roles" after instance from setProperty:
 
 create instance:
 
 ```TypeScript
 import  WebhookHandlerBuilder from 'bm-ev-handler-builder';
 
-const handlerBuilder = new WebhookHandlerBuilder();
+const handlerBuilder = new WebhookHandlerBuilder({productKey});
 handlerBuilder.setRepository(myRepository)
 handlerBuilder.setUseCases(myUseCases)
 handlerBuilder.setDictRoles(myRoles)
@@ -50,9 +50,9 @@ Has possible to add use cases, repositories, and roles after instance one by one
 ```TypeScript
 import  WebhookHandlerBuilder from 'bm-ev-handler-builder';
 
-const handlerBuilder = new WebhookHandlerBuilder();
+const handlerBuilder = new WebhookHandlerBuilder({productKey});
 // roles
-handlerBuilder..addActionRole('PAYMENT_CONFIRMED', 'PENDING', ['activeContract'])
+handlerBuilder.addActionRole('PAYMENT_CONFIRMED', 'PENDING', ['activeContract'])
 
 // useCases
 handlerBuilder.addUseCase('myUseCasesFunctionName', myUseCasesFunction)
