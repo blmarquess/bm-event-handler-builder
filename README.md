@@ -23,15 +23,13 @@ create instance:
 ```TypeScript
 import  WebhookHandlerBuilder from 'bm-ev-handler-builder';
 
-const productKey = 'productKey'
-
 const useCases = {
   activeContract: (contract) => ({ ...contract, status: 'ACTIVE'}),
   cancelContract: (contract) => ({ ...contract, status: 'CANCELED'})
   }
 
 const repository = {
-  getContractByReferenceId: (referenceId, productKey) => contract
+  getContractByReferenceId: (referenceId) => contract
   }
 
 const dictRoles = { 'PAYMENT_CONFIRMED': {
@@ -39,12 +37,10 @@ const dictRoles = { 'PAYMENT_CONFIRMED': {
   pending: ['cancelContract']
 }}
 
-const handlerBuilder = new WebhookHandlerBuilder({ productKey, useCases, repository, dictRoles });
+const handlerBuilder = new WebhookHandlerBuilder({ useCases, repository, dictRoles });
 
 export handlerBuilder.handler(EventReceived)
 ```
-
-> The product key is required on the constructor. outers properties have possible to "add use cases, repositories, and roles" after instance from setProperty:
 
 create instance:
 
@@ -64,7 +60,7 @@ Has possible to add use cases, repositories, and roles after instance one by one
 ```TypeScript
 import  WebhookHandlerBuilder from 'bm-ev-handler-builder';
 
-const handlerBuilder = new WebhookHandlerBuilder({productKey});
+const handlerBuilder = new WebhookHandlerBuilder();
 
 // roles
 handlerBuilder.addActionRole('PAYMENT_CONFIRMED', 'PENDING', ['activeContract'])
