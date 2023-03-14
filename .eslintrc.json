@@ -16,6 +16,7 @@
     "indent": ["error", 2],
     "space-before-function-paren": "off",
     "@typescript-eslint/await-thenable": "off",
-    "@typescript-eslint/strict-boolean-expressions": "off"
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/restrict-template-expressions": "off"
   }
 }

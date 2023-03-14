@@ -12,20 +12,34 @@ install in project with:
 npm install bm-ev-handler-builder
 ```
 
+or
+
+```bach
+yarn add bm-ev-handler-builder
+```
+
 create instance:
 
 ```TypeScript
 import  WebhookHandlerBuilder from 'bm-ev-handler-builder';
 
 const productKey = 'productKey'
-const useCases = { activeContract: (contract) => { ...contract, status: 'ACTIVE'}}
-const repository = { getContractByReferenceId: (id) => contract }
-const dictRoles - { 'PAYMENT_CONFIRMED': {
+
+const useCases = {
+  activeContract: (contract) => ({ ...contract, status: 'ACTIVE'}),
+  cancelContract: (contract) => ({ ...contract, status: 'CANCELED'})
+  }
+
+const repository = {
+  getContractByReferenceId: (referenceId, productKey) => contract
+  }
+
+const dictRoles = { 'PAYMENT_CONFIRMED': {
   active: [ 'activeContract' ],
   pending: ['cancelContract']
 }}
 
-const handlerBuilder = new WebhookHandlerBuilder({productKey, useCases, repository, dictRoles});
+const handlerBuilder = new WebhookHandlerBuilder({ productKey, useCases, repository, dictRoles });
 
 export handlerBuilder.handler(EventReceived)
 ```
@@ -37,7 +51,7 @@ create instance:
 ```TypeScript
 import  WebhookHandlerBuilder from 'bm-ev-handler-builder';
 
-const handlerBuilder = new WebhookHandlerBuilder({productKey});
+const handlerBuilder = new WebhookHandlerBuilder({});
 handlerBuilder.setRepository(myRepository)
 handlerBuilder.setUseCases(myUseCases)
 handlerBuilder.setDictRoles(myRoles)
@@ -51,12 +65,20 @@ Has possible to add use cases, repositories, and roles after instance one by one
 import  WebhookHandlerBuilder from 'bm-ev-handler-builder';
 
 const handlerBuilder = new WebhookHandlerBuilder({productKey});
+
 // roles
 handlerBuilder.addActionRole('PAYMENT_CONFIRMED', 'PENDING', ['activeContract'])
+handlerBuilder.addActionRole('PAYMENT_OVERDUE', 'ACTIVE', ['cancelContract'])
 
 // useCases
-handlerBuilder.addUseCase('myUseCasesFunctionName', myUseCasesFunction)
-handlerBuilder.setDictRoles(myRoles)
+handlerBuilder.addUseCase('cancelContract', cancelContractFunction)
 
+// export handler to use e route
 export handlerBuilder.handler(EventReceived)
 ```
+
+<div align='center'> <br ><br ><br >
+		
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/N4N2DC6XA)
+		
+</div>

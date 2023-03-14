@@ -5,10 +5,7 @@ const responses: Types.IResponse = {
   notFound: { message: 'Event not found!' }
 }
 class DefaultRepository implements Types.IContractRepository {
-  async getContractByReferenceId(
-    _id: string,
-    _key: string
-  ): Promise<{
+  async getContractByReferenceId(_id: string): Promise<{
     status: string
     updateDescription: string
   }> {
@@ -28,21 +25,18 @@ class DefaultRepository implements Types.IContractRepository {
  * @returns  Object with result response of successfully 'ok': {message: 'Event has ben success processed!'} or  'notFound': {message: 'Event not found!'}}
  */
 export default class WebhookHandlerBuilder {
-  private readonly productKey: string
   private useCases: Types.IUseCases = {}
   private repository: Types.IContractRepository = new DefaultRepository()
   private dictRoles: Types.IDictRoles = {}
   private response = responses
   /**
    *
-   * @param productKey  Product key to identify the product
    * @param useCases  Object with all use cases functions {'useCaseName': useCaseFunction}
-   * @param repository  Object with all repository implementes getContractByReferenceId {'getContractByReferenceId': (contractId: string) => Promise<Types.IContract>)}
+   * @param repository  Object with all repository implementes getContractByReferenceId {'getContractByReferenceId': (contractId: string, productKey: string) => Promise<Types.IContract>)}
    * @param dictRoles  Object with all roles {'EVENT_NAME': {'CONTRACT_STATUS': ['useCaseName', 'useCaseName']}}
    * @param response  Object with all responses {'ok': {message: 'Event has ben success processed!'}, 'notFound': {message: 'Event not found!'}}
    */
-  constructor({ productKey, useCases, repository, dictRoles, response }: Types.IConstructorParams) {
-    this.productKey = productKey
+  constructor({ useCases, repository, dictRoles, response }: Types.IConstructorParams = {}) {
     this.useCases = useCases ?? {}
     this.repository = repository ?? new DefaultRepository()
     this.dictRoles = dictRoles ?? {}
@@ -57,8 +51,12 @@ export default class WebhookHandlerBuilder {
    **/
   private async execFlowActions(contract: Types.IContract, actionsArray: string[], event: Types.IEvent): Promise<void> {
     let contractInWork = contract
-    for (const useCase of actionsArray) {
-      contractInWork = await this.useCases[useCase](contractInWork, event)
+    for await (const useCase of actionsArray) {
+      try {
+        contractInWork = await this.useCases[useCase](contractInWork, event)
+      } catch (error: any) {
+        throw new Error(`Erro on use case ${useCase}: ${error.message}`)
+      }
     }
   }
 
@@ -69,17 +67,17 @@ export default class WebhookHandlerBuilder {
    * @throws Error('Use case not registered')
    * @throws Error('Contract not found')
    */
-  async handler(event: Types.IEvent): Promise<Types.IResult> {
-    const contract = await this.repository.getContractByReferenceId(event.referenceId, this.productKey)
-    const notMappedEvent = !this.dictRoles[event.event]
+  async handler(eventNotification: Types.IEvent): Promise<Types.IResult> {
+    const contract = await this.repository.getContractByReferenceId(eventNotification.referenceId)
+    const notMappedEvent = !this.dictRoles[eventNotification.event]
     if (notMappedEvent) {
       return this.response.notFound
     }
-    const notActionsForThisStatus = !this.dictRoles[event.event][contract.status]
+    const notActionsForThisStatus = !this.dictRoles[eventNotification.event][contract.status]
     if (notActionsForThisStatus) {
       return this.response.notFound
     }
-    await this.execFlowActions(contract, this.dictRoles[event.event][contract.status], event)
+    await this.execFlowActions(contract, this.dictRoles[eventNotification.event][contract.status], eventNotification)
     return this.response.ok
   }
 

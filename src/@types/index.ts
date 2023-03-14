@@ -33,7 +33,7 @@ export interface IResponse {
 export type IDictRoles = Record<string, Record<string, string[]>>
 
 export interface IContractRepository {
-  getContractByReferenceId: (referenceId: string, productKey: string) => Promise<IContract>
+  getContractByReferenceId: (referenceId: string) => Promise<IContract>
 }
 
 export interface IConstructorParams {
@@ -41,5 +41,4 @@ export interface IConstructorParams {
   useCases?: IUseCases
   dictRoles?: IDictRoles
   response?: IResponse
-  productKey: string
 }
