@@ -69,6 +69,9 @@ export default class WebhookHandlerBuilder {
    */
   async handler(eventNotification: Types.IEvent): Promise<Types.IResult> {
     const contract = await this.repository.getContractByReferenceId(eventNotification.referenceId)
+    if (!contract) {
+      return this.response.notFound
+    }
     const notMappedEvent = !this.dictRoles[eventNotification.event]
     if (notMappedEvent) {
       return this.response.notFound
