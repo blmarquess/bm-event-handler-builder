@@ -1,6 +1,6 @@
 import type * as Types from './@types'
 
-const responses: Types.IResponse = {
+const responsesDefault: Types.IResponse = {
   ok: { message: 'Event has ben success processed!' },
   notFound: { message: 'Event not found!' }
 }
@@ -24,24 +24,13 @@ class DefaultRepository implements Types.IContractRepository {
  * @param response  Object with all responses {'ok': {message: 'Event has ben success processed!'}, 'notFound': {message: 'Event not found!'}}
  * @returns  Object with result response of successfully 'ok': {message: 'Event has ben success processed!'} or  'notFound': {message: 'Event not found!'}}
  */
-export default class WebhookHandlerBuilder {
-  private useCases: Types.IUseCases = {}
-  private repository: Types.IContractRepository = new DefaultRepository()
-  private dictRoles: Types.IDictRoles = {}
-  private response = responses
-  /**
-   *
-   * @param useCases  Object with all use cases functions {'useCaseName': useCaseFunction}
-   * @param repository  Object with all repository implementes getContractByReferenceId {'getContractByReferenceId': (contractId: string, productKey: string) => Promise<Types.IContract>)}
-   * @param dictRoles  Object with all roles {'EVENT_NAME': {'CONTRACT_STATUS': ['useCaseName', 'useCaseName']}}
-   * @param response  Object with all responses {'ok': {message: 'Event has ben success processed!'}, 'notFound': {message: 'Event not found!'}}
-   */
-  constructor({ useCases, repository, dictRoles, response }: Types.IConstructorParams = {}) {
-    this.useCases = useCases ?? {}
-    this.repository = repository ?? new DefaultRepository()
-    this.dictRoles = dictRoles ?? {}
-    this.response = response ?? responses
-  }
+export class WebhookHandlerBuilder {
+  constructor(
+    private useCases: Types.IUseCases = {},
+    private repository: Types.IContractRepository = new DefaultRepository(),
+    private dictRoles: Types.IDictRoles = {},
+    private response = responsesDefault
+  ) {}
 
   /**
    * @param contract  Contract object
