@@ -20,8 +20,8 @@ yarn add bm-ev-handler-builder
 
 create instance:
 
-```TypeScript
-import  WebhookHandlerBuilder from 'bm-ev-handler-builder';
+```JavaScript
+import  { WebhookHandlerBuilder } from 'bm-ev-handler-builder';
 
 const useCases = {
   activeContract: (contract) => ({ ...contract, status: 'ACTIVE'}),
@@ -37,17 +37,17 @@ const dictRoles = { 'PAYMENT_CONFIRMED': {
   pending: ['cancelContract']
 }}
 
-const handlerBuilder = new WebhookHandlerBuilder({ useCases, repository, dictRoles });
+const handlerBuilder = new WebhookHandlerBuilder(useCases, repository, dictRoles);
 
 export handlerBuilder.handler(EventReceived)
 ```
 
 create instance:
 
-```TypeScript
-import  WebhookHandlerBuilder from 'bm-ev-handler-builder';
+```JavaScript
+import  { WebhookHandlerBuilder } from 'bm-ev-handler-builder';
 
-const handlerBuilder = new WebhookHandlerBuilder({});
+const handlerBuilder = new WebhookHandlerBuilder();
 handlerBuilder.setRepository(myRepository)
 handlerBuilder.setUseCases(myUseCases)
 handlerBuilder.setDictRoles(myRoles)
@@ -57,8 +57,8 @@ export handlerBuilder.handler(EventReceived)
 
 Has possible to add use cases, repositories, and roles after instance one by one:
 
-```TypeScript
-import  WebhookHandlerBuilder from 'bm-ev-handler-builder';
+```JavaScript
+import  { WebhookHandlerBuilder } from 'bm-ev-handler-builder';
 
 const handlerBuilder = new WebhookHandlerBuilder();
 

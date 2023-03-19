@@ -1,9 +1,10 @@
 {
   "name": "bm-ev-handler-builder",
-  "version": "1.0.38",
+  "version": "1.0.4",
   "description": "",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
+  "type": "module",
   "typesVersions": {
     "*": {
       "dist/*": [
@@ -27,7 +28,7 @@
     "clean": "rimraf dist",
     "build": "npm run clean && tsc -p tsconfig.build.json",
     "dev": "tsn --respawn --transpileOnly --ignore-watch node_modules src/main.ts",
-    "publish": "npm run build && npm publish",
+    "pub": "npm run build && npm publish",
     "lint": "eslint --ext .ts src/ --fix",
     "test": "jest",
     "test:watch": "jest --watchAll",
@@ -43,7 +44,7 @@
   },
   "devDependencies": {
     "@types/jest": "^29.4.0",
-    "@types/node": "^18.11.18",
+    "@types/node": "^18.15.3",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.6.0",
