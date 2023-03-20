@@ -1,5 +1,5 @@
 import UseCases from './mocks/useCases'
-import { WebhookHandlerBuilder } from '../main'
+import WebhookHandlerBuilder from '../main'
 import { Events, Repository, responseMessages } from './mocks'
 
 describe('Webhook Build Handler', () => {

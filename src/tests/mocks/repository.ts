@@ -1,7 +1,7 @@
-import * as Types from '@/@types'
+import { IContract, IContractRepository } from '../../types'
 
-export class Repository implements Types.IContractRepository {
-  private contract: Types.IContract = {
+export class Repository implements IContractRepository {
+  private contract: IContract = {
     status: 'PENDING',
     updateDescription: 'Contract Pending'
   }
