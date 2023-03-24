@@ -33,7 +33,7 @@ class DefaultRepository implements IContractRepository {
  * @param response  Object with all responses {'ok': {message: 'Event has ben success processed!'}, 'notFound': {message: 'Event not found!'}}
  * @returns  Object with result response of successfully 'ok': {message: 'Event has ben success processed!'} or  'notFound': {message: 'Event not found!'}}
  */
-export default class WebhookHandlerBuilder {
+export class WebhookHandlerBuilder {
   /**
    *
    * @param useCases  Object with all use cases functions {'useCaseName': useCaseFunction}

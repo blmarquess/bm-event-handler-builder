@@ -1,7 +1,7 @@
 {
   "name": "bm-ev-handler-builder",
-  "version": "1.0.411",
-  "description": "",
+  "version": "1.0.42",
+  "description": "lib of build a handler of events by holes",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "type": "commonjs",
@@ -44,6 +44,7 @@
   },
   "devDependencies": {
     "@types/jest": "^29.4.0",
+    "@types/mongoose": "^5.11.97",
     "@types/node": "^18.15.3",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "eslint": "^8.0.1",
