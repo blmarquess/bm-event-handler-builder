@@ -23,6 +23,9 @@
     "bruno",
     "marques"
   ],
+  "publishConfig": {
+  "registry": "https://npm.pkg.github.com"
+  },
   "license": "MIT",
   "scripts": {
     "clean": "rimraf dist",
